@@ -1,13 +1,16 @@
 package View;
 
 import Model.Employee;
+import Model.HRModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class GUI {
+public class GUI implements EmployeeDetailsObserver, SearchResultObserver {
+    HRModel hrModel;
+
     JFrame frame;
     JPanel mainPanel;
 
@@ -39,7 +42,11 @@ public class GUI {
     JTextField showDetailsPhoneTextField;
 
 
-    public GUI() {
+    public GUI(HRModel model) {
+        this.hrModel = model;
+        hrModel.registerEmployeeDetailsObserver((EmployeeDetailsObserver) this);
+        hrModel.registerSearchResultObserver( (SearchResultObserver) this);
+
         frame = new JFrame();
         mainPanel = new JPanel();
 
@@ -147,6 +154,14 @@ public class GUI {
         showDetailsEmailTextField.setText(employee.getEmail());
         showDetailsSalaryTextField.setText(String.valueOf(employee.getSalary()));
         showDetailsPhoneTextField.setText(String.valueOf(employee.getPhoneNumber()));
+    }
+
+    public void updateEmployeeDetails() {
+        System.out.println("GUI Updating employee details");
+    }
+
+    public void updateSearchResult() {
+        System.out.println("GUI Updating search result");
     }
 
 

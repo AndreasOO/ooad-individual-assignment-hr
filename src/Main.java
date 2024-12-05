@@ -1,17 +1,16 @@
+import Controller.HRController;
 import Model.Database;
 import Model.Employee;
+import Model.HRModel;
 import Model.Position;
 import View.GUI;
 
 public class Main {
     public static void main(String[] args) {
-        GUI gui = new GUI();
-        gui.init();
+        HRModel model = new HRModel();
+        System.out.println(model);
+        HRController controller = new HRController(model);
 
-    Database database = new Database();
-    database.getEmployees().values().forEach(employee -> gui.addEmployeeRow(employee));
-    Employee employee = database.searchByID(1).getFirst();
-
-    gui.showEmployeeDetails(employee);
+        controller.initializeController();
  }
 }
