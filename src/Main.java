@@ -8,7 +8,7 @@ import View.GUI;
 public class Main {
     public static void main(String[] args) {
         HRModel model = new HRModel();
-        System.out.println(model);
+
         HRController controller = new HRController(model);
 
         controller.initializeController();

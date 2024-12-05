@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GUI implements EmployeeDetailsObserver, SearchResultObserver {
     HRModel hrModel;
@@ -156,12 +157,18 @@ public class GUI implements EmployeeDetailsObserver, SearchResultObserver {
         showDetailsPhoneTextField.setText(String.valueOf(employee.getPhoneNumber()));
     }
 
+    @Override
     public void updateEmployeeDetails() {
         System.out.println("GUI Updating employee details");
+        showEmployeeDetails(hrModel.getEmployeeSelectedForDetailedView());
     }
 
+    @Override
     public void updateSearchResult() {
         System.out.println("GUI Updating search result");
+        for (Employee employee :hrModel.getCurrentSearchResult()) {
+            addEmployeeRow(employee);
+        }
     }
 
 

@@ -56,4 +56,17 @@ public class HRModel {
     public void registerSearchResultObserver(SearchResultObserver searchResultObserver) {
         searchResultObservers.add(searchResultObserver);
     }
+
+
+    public Employee getEmployeeSelectedForDetailedView() {
+        return employeeSelectedForDetailedView;
+    }
+
+    public List<Employee> getCurrentSearchResult() {
+        return currentSearchResult;
+    }
+
+    public List<Employee> getFilteredSearchResult() {
+        return filteredSearchResult;
+    }
 }
