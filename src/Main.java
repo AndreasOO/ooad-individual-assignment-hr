@@ -5,15 +5,13 @@ import View.GUI;
 
 public class Main {
     public static void main(String[] args) {
-//        GUI gui = new GUI();
-//        gui.init();
+        GUI gui = new GUI();
+        gui.init();
 
     Database database = new Database();
-//    database.getEmployees().entrySet().forEach(e -> {System.out.println("ID: " + e.getKey() + "  Name: " + e.getValue().getName());});
+    database.getEmployees().values().forEach(employee -> gui.addEmployeeRow(employee));
+    Employee employee = database.searchByID(1).getFirst();
 
-//        database.searchByID(1).forEach(e -> System.out.println(e.getName()));
-
-//        database.searchByName("Andy").forEach(e -> System.out.println(e.getName()));
-        database.emptySearch().forEach(e -> System.out.println(e.getName()));
+    gui.showEmployeeDetails(employee);
  }
 }

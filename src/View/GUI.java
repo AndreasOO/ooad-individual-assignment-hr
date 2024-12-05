@@ -1,7 +1,10 @@
 package View;
 
+import Model.Employee;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class GUI {
@@ -21,6 +24,7 @@ public class GUI {
     JPanel centerPanel;
     JPanel searchResultPanel;
     JTable searchResultTable;
+    DefaultTableModel searchResultTableModel;
     JScrollPane searchResultScrollPane;
 
     JPanel showDetailsMainPanel;
@@ -51,7 +55,14 @@ public class GUI {
 
         centerPanel = new JPanel();
         searchResultPanel = new JPanel();
-        searchResultTable = new JTable(new String[][]{new String[]{"1", "Jane Doe", "Manager"}},new String[]{"ID", "Name", "Position"});
+//        searchResultTable = new JTable(new String[][]{new String[]{"1", "Jane Doe", "Manager"}},new String[]{"ID", "Name", "Position"});
+        searchResultTableModel = new DefaultTableModel();
+        searchResultTable = new JTable(searchResultTableModel);
+        searchResultTableModel.addColumn("Name");
+        searchResultTableModel.addColumn("ID");
+        searchResultTableModel.addColumn("Position");
+
+
         searchResultScrollPane = new JScrollPane(searchResultTable);
         showDetailsMainPanel = new JPanel();
         showDetailsTopPanel = new JPanel();
@@ -125,4 +136,65 @@ public class GUI {
 
     }
 
+    public void addEmployeeRow(Employee employee) {
+        searchResultTableModel.addRow(new String[]{String.valueOf(employee.getId()), employee.getName(), employee.getPosition().title});
+    }
+
+    public void showEmployeeDetails(Employee employee) {
+        showDetailsNameTextField.setText(employee.getName());
+        showDetailsEmploymentPercentageTextField.setText(String.valueOf(employee.getWorkingPercentage()));
+        showDetailsPositionTextField.setText(employee.getPosition().title);
+        showDetailsEmailTextField.setText(employee.getEmail());
+        showDetailsSalaryTextField.setText(String.valueOf(employee.getSalary()));
+        showDetailsPhoneTextField.setText(String.valueOf(employee.getPhoneNumber()));
+    }
+
+
+    public JTextField getSearchField() {
+        return searchField;
+    }
+
+    public JRadioButton getRadioButtonName() {
+        return radioButtonName;
+    }
+
+    public JRadioButton getRadioButtonID() {
+        return radioButtonID;
+    }
+
+    public JComboBox<String> getFilterComboBox() {
+        return filterComboBox;
+    }
+
+    public JTable getSearchResultTable() {
+        return searchResultTable;
+    }
+
+    public JButton getShowDetailsButton() {
+        return showDetailsButton;
+    }
+
+    public JTextField getShowDetailsNameTextField() {
+        return showDetailsNameTextField;
+    }
+
+    public JTextField getShowDetailsEmploymentPercentageTextField() {
+        return showDetailsEmploymentPercentageTextField;
+    }
+
+    public JTextField getShowDetailsPositionTextField() {
+        return showDetailsPositionTextField;
+    }
+
+    public JTextField getShowDetailsEmailTextField() {
+        return showDetailsEmailTextField;
+    }
+
+    public JTextField getShowDetailsSalaryTextField() {
+        return showDetailsSalaryTextField;
+    }
+
+    public JTextField getShowDetailsPhoneTextField() {
+        return showDetailsPhoneTextField;
+    }
 }
