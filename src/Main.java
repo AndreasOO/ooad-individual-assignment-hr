@@ -10,7 +10,7 @@ public class Main {
         HRModel model = new HRModel();
 
         HRController controller = new HRController(model);
-
         controller.initializeController();
+
  }
 }

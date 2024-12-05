@@ -2,6 +2,7 @@ package View;
 
 import Model.Employee;
 import Model.HRModel;
+import Model.Position;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -9,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GUI implements EmployeeDetailsObserver, SearchResultObserver {
+public class GUI implements EmployeeDetailsObserver, SearchResultObserver, FilterResultObserver {
     HRModel hrModel;
 
     JFrame frame;
@@ -45,8 +46,9 @@ public class GUI implements EmployeeDetailsObserver, SearchResultObserver {
 
     public GUI(HRModel model) {
         this.hrModel = model;
-        hrModel.registerEmployeeDetailsObserver((EmployeeDetailsObserver) this);
-        hrModel.registerSearchResultObserver( (SearchResultObserver) this);
+        hrModel.registerEmployeeDetailsObserver(this);
+        hrModel.registerSearchResultObserver(this);
+        hrModel.registerFilterResultObserver(this);
 
         frame = new JFrame();
         mainPanel = new JPanel();
@@ -59,15 +61,14 @@ public class GUI implements EmployeeDetailsObserver, SearchResultObserver {
         radioButtonName = new JRadioButton("Name");
         radioButtonID = new JRadioButton("ID");
         filterLabel = new JLabel("Filter      ", SwingConstants.RIGHT);
-        filterComboBox = new JComboBox<>(new String[]{"None", "Developer", "Manager", "HR"});
+        filterComboBox = new JComboBox<>(new String[]{"None", "Developer", "Manager", "HR", "Product Owner"});
 
         centerPanel = new JPanel();
         searchResultPanel = new JPanel();
-//        searchResultTable = new JTable(new String[][]{new String[]{"1", "Jane Doe", "Manager"}},new String[]{"ID", "Name", "Position"});
         searchResultTableModel = new DefaultTableModel();
         searchResultTable = new JTable(searchResultTableModel);
-        searchResultTableModel.addColumn("Name");
         searchResultTableModel.addColumn("ID");
+        searchResultTableModel.addColumn("Name");
         searchResultTableModel.addColumn("Position");
 
 
@@ -76,12 +77,12 @@ public class GUI implements EmployeeDetailsObserver, SearchResultObserver {
         showDetailsTopPanel = new JPanel();
         showDetailsButton = new JButton("Show Details");
         showDetailsCenterPanel = new JPanel();
-        showDetailsNameTextField = new JTextField("Jane Doe");
-        showDetailsEmploymentPercentageTextField = new JTextField("100%");
-        showDetailsPositionTextField = new JTextField("Manager");
-        showDetailsEmailTextField = new JTextField("jane@doe.com");
-        showDetailsSalaryTextField = new JTextField("53 000");
-        showDetailsPhoneTextField = new JTextField("09-12 55 12");
+        showDetailsNameTextField = new JTextField();
+        showDetailsEmploymentPercentageTextField = new JTextField();
+        showDetailsPositionTextField = new JTextField();
+        showDetailsEmailTextField = new JTextField();
+        showDetailsSalaryTextField = new JTextField();
+        showDetailsPhoneTextField = new JTextField();
     }
 
     public void init() {
@@ -141,7 +142,6 @@ public class GUI implements EmployeeDetailsObserver, SearchResultObserver {
         showDetailsCenterPanel.add(showDetailsSalaryTextField);
         showDetailsCenterPanel.add(showDetailsPhoneTextField);
 
-
     }
 
     public void addEmployeeRow(Employee employee) {
@@ -159,18 +159,35 @@ public class GUI implements EmployeeDetailsObserver, SearchResultObserver {
 
     @Override
     public void updateEmployeeDetails() {
-        System.out.println("GUI Updating employee details");
         showEmployeeDetails(hrModel.getEmployeeSelectedForDetailedView());
     }
 
     @Override
     public void updateSearchResult() {
-        System.out.println("GUI Updating search result");
-        for (Employee employee :hrModel.getCurrentSearchResult()) {
-            addEmployeeRow(employee);
+        resetTable();
+        hrModel.getCurrentSearchResult().forEach(this::addEmployeeRow);
+    }
+    @Override
+    public void updateFilterResult() {
+        resetTable();
+        hrModel.getFilteredSearchResult().forEach(this::addEmployeeRow);
+    }
+
+    private void resetTable() {
+        while (searchResultTableModel.getRowCount() > 0) {
+            searchResultTableModel.removeRow(searchResultTableModel.getRowCount() - 1);
         }
     }
 
+    public String getSelectedEmployeeInTable() {
+        int row = searchResultTable.getSelectedRow();
+        return searchResultTable.getValueAt(row,0).toString();
+    }
+
+
+    public JFrame getFrame() {
+        return frame;
+    }
 
     public JTextField getSearchField() {
         return searchField;

@@ -1,10 +1,12 @@
 package Model;
 
 import View.EmployeeDetailsObserver;
+import View.FilterResultObserver;
 import View.SearchResultObserver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HRModel {
     Database database;
@@ -13,28 +15,45 @@ public class HRModel {
     List<Employee> filteredSearchResult;
     List<EmployeeDetailsObserver> employeeDetailsObservers;
     List<SearchResultObserver> searchResultObservers;
+    List<FilterResultObserver> filterResultObservers;
 
     public HRModel() {
         database = new Database();
         database.initializeDatabase();
         employeeDetailsObservers = new ArrayList<>();
         searchResultObservers = new ArrayList<>();
+        filterResultObservers = new ArrayList<>();
     }
 
-    public void setEmployeeSelectedForDetailedView() {
-        System.out.println("model setting employeeSelectedForDetailedView");
+    public void setEmployeeSelectedForDetailedView(long employeeID) {
+        employeeSelectedForDetailedView = database.searchByID(employeeID).getFirst();
         notifyEmployeeDetailsObservers();
     }
 
+    public void searchAll() {
+        currentSearchResult = database.searchAll();
+        notifySearchResultObservers();
+
+    }
+
     public void searchByName(String name) {
-        System.out.println("model searching by name");
+        currentSearchResult = database.searchByName(name);
         notifySearchResultObservers();
     }
 
     public void searchByID(String id) {
         long idLong = Long.parseLong(id);
-        System.out.println("model searching by ID");
+        currentSearchResult = database.searchByID(idLong);
         notifySearchResultObservers();
+    }
+
+    public void filterByPosition(String filter) {
+        if (filter.equals("None")) {
+            filteredSearchResult = currentSearchResult;
+        } else {
+            filteredSearchResult = currentSearchResult.stream().filter(employee -> employee.getPosition().title.equals(filter)).collect(Collectors.toList());
+        }
+        notifyFilterResultObservers();
     }
 
     public void notifyEmployeeDetailsObservers() {
@@ -49,12 +68,22 @@ public class HRModel {
         }
     }
 
+    public void notifyFilterResultObservers() {
+        for (FilterResultObserver filterResultObserver : filterResultObservers) {
+            filterResultObserver.updateFilterResult();
+        }
+    }
+
     public void registerEmployeeDetailsObserver(EmployeeDetailsObserver employeeDetailsObserver) {
         employeeDetailsObservers.add(employeeDetailsObserver);
     }
 
     public void registerSearchResultObserver(SearchResultObserver searchResultObserver) {
         searchResultObservers.add(searchResultObserver);
+    }
+
+    public void registerFilterResultObserver(FilterResultObserver filterResultObserver) {
+        filterResultObservers.add(filterResultObserver);
     }
 
 

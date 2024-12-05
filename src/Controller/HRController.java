@@ -3,6 +3,8 @@ package Controller;
 import Model.HRModel;
 import View.GUI;
 
+import javax.swing.*;
+
 public class HRController {
     HRModel model;
     GUI gui;
@@ -19,16 +21,26 @@ public class HRController {
 
     public void addEventListeners() {
         gui.getShowDetailsButton().addActionListener(e -> {
-            model.setEmployeeSelectedForDetailedView(); // get id from selected row cell 0 and pass in.
+            long employeeID = Long.parseLong(gui.getSelectedEmployeeInTable());
+            model.setEmployeeSelectedForDetailedView(employeeID);
         });
 
         gui.getSearchField().addActionListener(e -> {
-            if (gui.getRadioButtonID().isSelected()) {
-                model.searchByID("1");
+            String searchInput = gui.getSearchField().getText();
+            if (searchInput.isEmpty()) {
+                model.searchAll();
+            }
+            else if (gui.getRadioButtonID().isSelected()) {
+                model.searchByID(searchInput);
             }
             else if (gui.getRadioButtonName().isSelected()) {
-                model.searchByName(gui.getSearchField().getText());
+                model.searchByName(searchInput);
             }
+        });
+
+        gui.getFilterComboBox().addActionListener(e -> {
+            String filter = gui.getFilterComboBox().getSelectedItem().toString();
+            model.filterByPosition(filter);
         });
     }
 

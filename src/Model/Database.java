@@ -17,7 +17,7 @@ public class Database {
         return DataLoader.loadData().stream().collect(Collectors.toMap(Employee::getId, Function.identity()));
     }
 
-    public List<Employee> emptySearch() {
+    public List<Employee> searchAll() {
         return employees.values().stream().toList();
     }
 
