@@ -7,7 +7,6 @@ public class DataLoader {
     public static List<Employee> loadData() {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee("Andy", 50, Position.DEVELOPER, "Andy@gmail.com", 50000, "1234 555 22"));
-        employees.add(new Employee("Andy", 50, Position.DEVELOPER, "Andy@gmail.com", 50000, "1234 555 22"));
         employees.add(new Employee("Sarah", 30, Position.MANAGER, "Sarah@gmail.com", 70000, "9876 555 88"));
         employees.add(new Employee("John", 45, Position.PRODUCT_OWNER, "John@gmail.com", 65000, "2468 555 11"));
         employees.add(new Employee("Emily", 38, Position.HR, "Emily@gmail.com", 55000, "3579 555 33"));

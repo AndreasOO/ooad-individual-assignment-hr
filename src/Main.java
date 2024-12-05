@@ -8,6 +8,7 @@ public class Main {
 //        GUI gui = new GUI();
 //        gui.init();
 
-
+    Database database = new Database();
+    database.getEmployees().entrySet().forEach(e -> {System.out.println("ID: " + e.getKey() + "  Name: " + e.getValue().getName());});
  }
 }
