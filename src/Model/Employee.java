@@ -5,6 +5,7 @@ public class Employee implements Comparable<Employee>{
     private long id;
     private String name;
     private Position position;
+    private String email;
     private double salary;
     private int workingPercentage;
     private String phoneNumber;
@@ -12,12 +13,13 @@ public class Employee implements Comparable<Employee>{
 
 
 
-    public Employee(String name, Position position, double salary, int workingPercentage, String phoneNumber) {
+    public Employee(String name, int workingPercentage, Position position, String email, double salary,  String phoneNumber) {
         this.id = nextEmployeeId++;
         this.name = name;
-        this.position = position;
-        this.salary = salary;
         this.workingPercentage = workingPercentage;
+        this.position = position;
+        this.email = email;
+        this.salary = salary;
         this.phoneNumber = phoneNumber;
     }
 
@@ -56,6 +58,14 @@ public class Employee implements Comparable<Employee>{
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public double getSalary() {

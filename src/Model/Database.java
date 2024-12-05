@@ -7,10 +7,14 @@ public class Database {
     List<Employee> employees;
 
     public Database() {
-        employees = new ArrayList<>();
+        employees = initializeDatabase();
     }
 
-    public void initializeDatabase() {
+    public List<Employee> initializeDatabase() {
+        return DataLoader.loadData();
+    }
 
+    public List<Employee> getEmployees() {
+        return employees;
     }
 }
