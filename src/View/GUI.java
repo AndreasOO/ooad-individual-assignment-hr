@@ -174,9 +174,7 @@ public class GUI implements EmployeeDetailsObserver, SearchResultObserver, Filte
     }
 
     private void resetTable() {
-        while (searchResultTableModel.getRowCount() > 0) {
-            searchResultTableModel.removeRow(searchResultTableModel.getRowCount() - 1);
-        }
+        searchResultTableModel.setRowCount(0);
     }
 
     public String getSelectedEmployeeInTable() {
