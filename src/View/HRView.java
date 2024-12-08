@@ -4,6 +4,7 @@ import Model.Employee;
 import Model.HRModel;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -47,6 +48,53 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
     JLabel loginLabel;
     JComboBox<String> loginComboBox;
     JButton loginButton;
+
+
+    // manager view
+    JPanel showStatisticsMainPanel;
+    JPanel showStatisticsTopPanel;
+    JButton showStatisticsButton;
+    JPanel showStatisticsCenterPanel;
+
+
+    JPanel showStatisticsLeftColumn;
+    JLabel showStatisticsEmployeesTitleLabel;
+    JLabel showStatisticsTotalNumberOfEmployeesLabel;
+    JTextField showStatisticsTotalNumberOfEmployeesTextField;
+    JLabel showStatisticsGeneralWorkingPercentageLabel;
+    JTextField showStatisticsGeneralWorkingPercentageTextField;
+
+
+    JPanel showStatisticsMiddleColumn;
+    JLabel showStatisticsPositionsLabel;
+
+    JLabel showStatisticsPositionProductOwnerLabel;
+    JTextField showStatisticsPositionProductOwnerPercentageTextField;
+
+    JLabel showStatisticsPositionDeveloperLabel;
+    JTextField showStatisticsPositionDeveloperPercentageTextField;
+
+    JLabel showStatisticsPositionManagerLabel;
+    JTextField showStatisticsPositionManagerPercentageTextField;
+
+    JLabel showStatisticsPositionHRLabel;
+    JTextField showStatisticsPositionHRPercentageTextField;
+
+
+
+    JPanel showStatisticsRightColumn;
+    JLabel showStatisticsSalariesLabel;
+
+    JLabel showStatisticsSalaryHighestLabel;
+    JTextField showStatisticsSalaryHighestTextField;
+
+    JLabel showStatisticsSalaryLowestLabel;
+    JTextField showStatisticsSalaryLowestTextField;
+
+    JLabel showStatisticsSalaryAverageLabel;
+    JTextField showStatisticsSalaryAverageTextField;
+
+
 
 
     public HRView(HRModel model) {
@@ -97,6 +145,56 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         loginLabel = new JLabel("Choose user for login", SwingConstants.CENTER);
         loginComboBox = new JComboBox<>(new String[]{"HR Admin", "Manager"});
         loginButton = new JButton("Login");
+
+
+
+        // manager view
+        showStatisticsMainPanel = new JPanel();
+        showStatisticsTopPanel = new JPanel();
+        showStatisticsButton = new JButton("Show Statistics");
+        showStatisticsCenterPanel = new JPanel();
+
+
+        showStatisticsLeftColumn = new JPanel();
+        showStatisticsLeftColumn.setBorder(new LineBorder(Color.BLACK));
+        showStatisticsEmployeesTitleLabel = new JLabel("Employee Statistics", SwingConstants.CENTER);
+        showStatisticsTotalNumberOfEmployeesLabel = new JLabel("Total Number of Employees");
+        showStatisticsTotalNumberOfEmployeesTextField = new JTextField();
+        showStatisticsGeneralWorkingPercentageLabel = new JLabel("General Working Percentage");
+        showStatisticsGeneralWorkingPercentageTextField = new JTextField();
+
+
+        showStatisticsMiddleColumn = new JPanel();
+        showStatisticsMiddleColumn.setBorder(new LineBorder(Color.BLACK));
+        showStatisticsPositionsLabel = new JLabel("Position Statistics", SwingConstants.CENTER);
+
+        showStatisticsPositionProductOwnerLabel = new JLabel("Product Owner %");
+        showStatisticsPositionProductOwnerPercentageTextField =  new JTextField();
+
+        showStatisticsPositionDeveloperLabel = new JLabel("Developer %");
+        showStatisticsPositionDeveloperPercentageTextField = new JTextField();
+
+        showStatisticsPositionManagerLabel = new JLabel("Manager %");
+        showStatisticsPositionManagerPercentageTextField = new JTextField();
+
+        showStatisticsPositionHRLabel = new JLabel("HR %");
+        showStatisticsPositionHRPercentageTextField = new JTextField();
+
+
+
+        showStatisticsRightColumn = new JPanel();
+        showStatisticsRightColumn.setBorder(new LineBorder(Color.BLACK));
+        showStatisticsSalariesLabel = new JLabel("Salary Statistics", SwingConstants.CENTER);
+
+        showStatisticsSalaryHighestLabel = new JLabel("Highest salary");
+        showStatisticsSalaryHighestTextField = new JTextField();
+
+        showStatisticsSalaryLowestLabel = new JLabel("Lowest salary");
+        showStatisticsSalaryLowestTextField = new JTextField();
+
+        showStatisticsSalaryAverageLabel = new JLabel("Average salary");
+        showStatisticsSalaryAverageTextField = new JTextField();
+
     }
 
     public void init() {
@@ -159,6 +257,47 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
 
         //TODO add statistic details main panel - remove/add from centerPanel when switching between users
 
+        showStatisticsMainPanel.setLayout(new BorderLayout());
+        showStatisticsMainPanel.add(showStatisticsTopPanel, BorderLayout.NORTH);
+        showStatisticsTopPanel.setLayout(new GridLayout(1,1));
+        showStatisticsTopPanel.add(showStatisticsButton, BorderLayout.NORTH);
+
+        showStatisticsMainPanel.add(showStatisticsCenterPanel);
+
+        showStatisticsCenterPanel.setLayout(new GridLayout(1,3));
+
+        showStatisticsCenterPanel.add(showStatisticsLeftColumn);
+        showStatisticsLeftColumn.setLayout(new GridLayout(9,1));
+        showStatisticsLeftColumn.add(showStatisticsEmployeesTitleLabel);
+        showStatisticsLeftColumn.add(showStatisticsTotalNumberOfEmployeesLabel);
+        showStatisticsLeftColumn.add(showStatisticsTotalNumberOfEmployeesTextField);
+        showStatisticsLeftColumn.add(showStatisticsGeneralWorkingPercentageLabel);
+        showStatisticsLeftColumn.add(showStatisticsGeneralWorkingPercentageTextField);
+
+        showStatisticsCenterPanel.add(showStatisticsMiddleColumn);
+        showStatisticsMiddleColumn.setLayout(new GridLayout(9,1));
+        showStatisticsMiddleColumn.add(showStatisticsPositionsLabel);
+        showStatisticsMiddleColumn.add(showStatisticsPositionProductOwnerLabel);
+        showStatisticsMiddleColumn.add(showStatisticsPositionProductOwnerPercentageTextField);
+        showStatisticsMiddleColumn.add(showStatisticsPositionDeveloperLabel);
+        showStatisticsMiddleColumn.add(showStatisticsPositionDeveloperPercentageTextField);
+        showStatisticsMiddleColumn.add(showStatisticsPositionManagerLabel);
+        showStatisticsMiddleColumn.add(showStatisticsPositionManagerPercentageTextField);
+        showStatisticsMiddleColumn.add(showStatisticsPositionHRLabel);
+        showStatisticsMiddleColumn.add(showStatisticsPositionHRPercentageTextField);
+
+        showStatisticsCenterPanel.add(showStatisticsRightColumn);
+        showStatisticsRightColumn.setLayout(new GridLayout(9,1));
+        showStatisticsRightColumn.add(showStatisticsSalariesLabel);
+        showStatisticsRightColumn.add(showStatisticsSalaryHighestLabel);
+        showStatisticsRightColumn.add(showStatisticsSalaryHighestTextField);
+        showStatisticsRightColumn.add(showStatisticsSalaryLowestLabel);
+        showStatisticsRightColumn.add(showStatisticsSalaryLowestTextField);
+        showStatisticsRightColumn.add(showStatisticsSalaryAverageLabel);
+        showStatisticsRightColumn.add(showStatisticsSalaryAverageTextField);
+
+
+
         // login init
 
         loginPanel.setLayout(new GridLayout(3,3));
@@ -182,7 +321,9 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         loginBox.add(loginComboBox);
         loginBox.add(loginButton);
 
-
+//        showUserLoginView();
+//        showManagerView();
+//        showHRAdminView();
     }
 
     public void showUserLoginView() {
@@ -192,9 +333,23 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         frame.repaint();
     }
 
-    public void showTableView() {
+    public void showHRAdminView() {
         mainPanel.removeAll();
         mainPanel.add(topPanel, BorderLayout.NORTH);
+        centerPanel.removeAll();
+        centerPanel.add(searchResultPanel);
+        centerPanel.add(showDetailsMainPanel);
+        mainPanel.add(centerPanel, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public void showManagerView() {
+        mainPanel.removeAll();
+        mainPanel.add(topPanel, BorderLayout.NORTH);
+        centerPanel.removeAll();
+        centerPanel.add(searchResultPanel);
+        centerPanel.add(showStatisticsMainPanel);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
         frame.revalidate();
         frame.repaint();
