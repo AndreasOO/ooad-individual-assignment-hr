@@ -48,12 +48,11 @@ public class HRAdminUserState implements ControllerState {
 
     @Override
     public void loginUser() {
-        throw new UnsupportedOperationException("Cannot log in");
+        throw new UnsupportedOperationException("Cannot login from logged in state");
     }
 
     @Override
     public void updateView() {
-        // hide mainpanel
-        // show loginPanel
+        view.showHRAdminView();
     }
 }

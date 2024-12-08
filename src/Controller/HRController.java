@@ -1,15 +1,13 @@
 package Controller;
 
-import Controller.StateMachine.ControllerState;
-import Controller.StateMachine.HRAdminUserState;
-import Controller.StateMachine.LoginState;
-import Controller.StateMachine.ManagerUserState;
+import Controller.StateMachine.*;
 import Model.HRModel;
 import View.HRView;
 
 public class HRController {
     HRModel model;
     HRView view;
+    User userLoggedIn;
 
     ControllerState state;
     ControllerState loginState;
@@ -24,11 +22,13 @@ public class HRController {
         hrAdminUserState = new HRAdminUserState(this, view, model);
         ManagerUserState = new ManagerUserState(this, view, model);
 
-        state = hrAdminUserState;
+        state = loginState;
+
     }
 
     public void initializeController() {
         view.init();
+        state.updateView();
         addEventListeners();
     }
 
@@ -44,7 +44,32 @@ public class HRController {
         view.getFilterComboBox().addActionListener(e -> {
             state.applyFilter();
         });
+        view.getLoginButton().addActionListener(e -> {
+            setUser(view.getLoginComboBox().getSelectedItem().toString());
+            state.loginUser();
+            state.updateView();
+        });
+
     }
 
+
+    private void setUser(String user) {
+        switch (user) {
+            case "Manager" -> userLoggedIn = User.MANAGER;
+            case "HR Admin" -> userLoggedIn = User.HR_ADMIN;
+        }
+    }
+
+    public User getUser() {
+        return userLoggedIn;
+    }
+
+    public void changeToHRAdminState() {
+        state = hrAdminUserState;
+    }
+
+    public void changeToManagerUserState() {
+        state = ManagerUserState;
+    }
 
 }
