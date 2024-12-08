@@ -2,15 +2,13 @@ package View;
 
 import Model.Employee;
 import Model.HRModel;
-import Model.Position;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
 
-public class GUI implements EmployeeDetailsObserver, SearchResultObserver, FilterResultObserver {
+public class HRView implements EmployeeDetailsObserver, SearchResultObserver, FilterResultObserver {
     HRModel hrModel;
 
     JFrame frame;
@@ -43,8 +41,15 @@ public class GUI implements EmployeeDetailsObserver, SearchResultObserver, Filte
     JTextField showDetailsSalaryTextField;
     JTextField showDetailsPhoneTextField;
 
+    // login panel
+    JPanel loginPanel;
+    JPanel loginBox;
+    JLabel loginLabel;
+    JComboBox<String> loginComboBox;
+    JButton loginButton;
 
-    public GUI(HRModel model) {
+
+    public HRView(HRModel model) {
         this.hrModel = model;
         hrModel.registerEmployeeDetailsObserver(this);
         hrModel.registerSearchResultObserver(this);
@@ -83,6 +88,15 @@ public class GUI implements EmployeeDetailsObserver, SearchResultObserver, Filte
         showDetailsEmailTextField = new JTextField();
         showDetailsSalaryTextField = new JTextField();
         showDetailsPhoneTextField = new JTextField();
+
+
+        // login panel
+
+        loginPanel = new JPanel();
+        loginBox = new JPanel();
+        loginLabel = new JLabel("Choose user for login", SwingConstants.CENTER);
+        loginComboBox = new JComboBox<>(new String[]{"HR Admin", "Manager"});
+        loginButton = new JButton("Login");
     }
 
     public void init() {
@@ -142,6 +156,48 @@ public class GUI implements EmployeeDetailsObserver, SearchResultObserver, Filte
         showDetailsCenterPanel.add(showDetailsSalaryTextField);
         showDetailsCenterPanel.add(showDetailsPhoneTextField);
 
+
+        //TODO add statistic details main panel - remove/add from centerPanel when switching between users
+
+        // login init
+
+        loginPanel.setLayout(new GridLayout(3,3));
+
+        loginPanel.add(new JPanel());
+        loginPanel.add(new JPanel());
+        loginPanel.add(new JPanel());
+        loginPanel.add(new JPanel());
+
+        loginPanel.add(loginBox);
+
+        loginPanel.add(new JPanel());
+        loginPanel.add(new JPanel());
+        loginPanel.add(new JPanel());
+        loginPanel.add(new JPanel());
+
+
+
+        loginBox.setLayout(new GridLayout(3,1));
+        loginBox.add(loginLabel);
+        loginBox.add(loginComboBox);
+        loginBox.add(loginButton);
+
+
+    }
+
+    public void showUserLoginView() {
+        mainPanel.removeAll();
+        mainPanel.add(loginPanel);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public void showTableView() {
+        mainPanel.removeAll();
+        mainPanel.add(topPanel, BorderLayout.NORTH);
+        mainPanel.add(centerPanel, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
     }
 
     public void addEmployeeRow(Employee employee) {
@@ -233,5 +289,13 @@ public class GUI implements EmployeeDetailsObserver, SearchResultObserver, Filte
 
     public JTextField getShowDetailsPhoneTextField() {
         return showDetailsPhoneTextField;
+    }
+
+    public JComboBox<String> getLoginComboBox() {
+        return loginComboBox;
+    }
+
+    public JButton getLoginButton() {
+        return loginButton;
     }
 }
