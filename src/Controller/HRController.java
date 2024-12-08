@@ -1,46 +1,48 @@
 package Controller;
 
+import Controller.StateMachine.ControllerState;
+import Controller.StateMachine.HRAdminUserState;
+import Controller.StateMachine.LoginState;
+import Controller.StateMachine.ManagerUserState;
 import Model.HRModel;
-import View.GUI;
-
-import javax.swing.*;
+import View.HRView;
 
 public class HRController {
     HRModel model;
-    GUI gui;
+    HRView view;
+
+    ControllerState state;
+    ControllerState loginState;
+    ControllerState hrAdminUserState;
+    ControllerState ManagerUserState;
 
     public HRController(HRModel model) {
         this.model = model;
-        gui = new GUI(model);
+        view = new HRView(model);
+
+        loginState = new LoginState(this, view, model);
+        hrAdminUserState = new HRAdminUserState(this, view, model);
+        ManagerUserState = new ManagerUserState(this, view, model);
+
+        state = hrAdminUserState;
     }
 
     public void initializeController() {
-        gui.init();
+        view.init();
         addEventListeners();
     }
 
     public void addEventListeners() {
-        gui.getShowDetailsButton().addActionListener(e -> {
-            long employeeID = Long.parseLong(gui.getSelectedEmployeeInTable());
-            model.setEmployeeSelectedForDetailedView(employeeID);
+        view.getShowDetailsButton().addActionListener(e -> {
+            state.showEmployeeDetails();
         });
 
-        gui.getSearchField().addActionListener(e -> {
-            String searchInput = gui.getSearchField().getText();
-            if (searchInput.isEmpty()) {
-                model.searchAll();
-            }
-            else if (gui.getRadioButtonID().isSelected()) {
-                model.searchByID(searchInput);
-            }
-            else if (gui.getRadioButtonName().isSelected()) {
-                model.searchByName(searchInput);
-            }
+        view.getSearchField().addActionListener(e -> {
+            state.performSearch();
         });
 
-        gui.getFilterComboBox().addActionListener(e -> {
-            String filter = gui.getFilterComboBox().getSelectedItem().toString();
-            model.filterByPosition(filter);
+        view.getFilterComboBox().addActionListener(e -> {
+            state.applyFilter();
         });
     }
 
