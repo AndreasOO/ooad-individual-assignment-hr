@@ -98,4 +98,10 @@ public class HRModel {
     public List<Employee> getFilteredSearchResult() {
         return filteredSearchResult;
     }
+
+    public void clearSearchHistory() {
+        employeeSelectedForDetailedView = null;
+        currentSearchResult = null;
+        filteredSearchResult = null;
+    }
 }

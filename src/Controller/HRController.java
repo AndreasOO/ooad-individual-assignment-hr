@@ -50,6 +50,12 @@ public class HRController {
             state.updateView();
         });
 
+        view.getLogOutButton().addActionListener(e -> {
+            userLoggedIn = User.NONE;
+            state.logoutUser();
+            state.updateView();
+        });
+
     }
 
 
@@ -72,4 +78,7 @@ public class HRController {
         state = ManagerUserState;
     }
 
+    public void changeToLoginState() {
+        state = loginState;
+    }
 }

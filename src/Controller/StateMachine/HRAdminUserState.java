@@ -52,7 +52,14 @@ public class HRAdminUserState implements ControllerState {
     }
 
     @Override
+    public void logoutUser() {
+        model.clearSearchHistory();
+        controller.changeToLoginState();
+    }
+
+    @Override
     public void updateView() {
+        view.resetTable();
         view.showHRAdminView();
     }
 }

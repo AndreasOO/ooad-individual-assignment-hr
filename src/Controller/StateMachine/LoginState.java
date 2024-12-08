@@ -44,6 +44,11 @@ public class LoginState implements ControllerState {
     }
 
     @Override
+    public void logoutUser() {
+        throw new UnsupportedOperationException("Cannot logout from logged out state");
+    }
+
+    @Override
     public void updateView() {
         view.showUserLoginView();
     }

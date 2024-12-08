@@ -6,5 +6,6 @@ public interface ControllerState {
     void showEmployeeDetails();
     void showStatistics();
     void loginUser();
+    void logoutUser();
     void updateView();
 }

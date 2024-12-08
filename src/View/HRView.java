@@ -24,6 +24,7 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
     JRadioButton radioButtonID;
     JLabel filterLabel;
     JComboBox<String> filterComboBox;
+    JButton logOutButton;
 
     JPanel centerPanel;
     JPanel searchResultPanel;
@@ -115,6 +116,7 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         radioButtonID = new JRadioButton("ID");
         filterLabel = new JLabel("Filter      ", SwingConstants.RIGHT);
         filterComboBox = new JComboBox<>(new String[]{"None", "Developer", "Manager", "HR", "Product Owner"});
+        logOutButton = new JButton("Log out");
 
         centerPanel = new JPanel();
         searchResultPanel = new JPanel();
@@ -216,7 +218,8 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         radioButtonPanel.add(radioButtonName);
         radioButtonPanel.add(radioButtonID);
 
-        topPanel.setLayout(new GridLayout(1,5));
+        topPanel.setLayout(new GridLayout(1,6));
+        topPanel.add(logOutButton);
         topPanel.add(searchLabel);
         topPanel.add(searchField);
         topPanel.add(radioButtonPanel);
@@ -321,9 +324,7 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         loginBox.add(loginComboBox);
         loginBox.add(loginButton);
 
-//        showUserLoginView();
-//        showManagerView();
-//        showHRAdminView();
+
     }
 
     public void showUserLoginView() {
@@ -384,7 +385,7 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         hrModel.getFilteredSearchResult().forEach(this::addEmployeeRow);
     }
 
-    private void resetTable() {
+    public void resetTable() {
         searchResultTableModel.setRowCount(0);
     }
 
@@ -452,5 +453,9 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
 
     public JButton getLoginButton() {
         return loginButton;
+    }
+
+    public JButton getLogOutButton() {
+        return logOutButton;
     }
 }
