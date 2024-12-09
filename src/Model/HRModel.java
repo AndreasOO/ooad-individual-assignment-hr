@@ -6,8 +6,11 @@ import View.SearchResultObserver;
 import View.StatisticsObserver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class HRModel {
     Database database;
@@ -37,6 +40,7 @@ public class HRModel {
 
     public void searchAll() {
         currentSearchResult = database.searchAll();
+        filteredSearchResult = currentSearchResult;
         notifySearchResultObservers();
 
     }
@@ -64,9 +68,26 @@ public class HRModel {
     }
 
     public void extractStatistics() {
-        System.out.println("extracting statistics in model");
+        statistics.setNumberOfEmployees(filteredSearchResult.size());
+        statistics.setAverageWorkingPercentage((double)(filteredSearchResult.stream()
+                                                                            .flatMapToInt(employee -> IntStream.of(employee.getWorkingPercentage()))
+                                                                            .sum())/filteredSearchResult.size());
+        statistics.setPositionPercentages(calculatePositionPercentages());
+
+
+
+
         // TODO statistics methods here
         notifyStatisticsObservers();
+    }
+
+    private Map<Position, Double> calculatePositionPercentages() {
+        Map<Position, Long> countingMap = filteredSearchResult.stream()
+
+                                                              .collect(Collectors.groupingBy(Employee::getPosition, Collectors.counting()));
+        return countingMap.entrySet().stream()
+                                     .collect(Collectors.toMap(Map.Entry::getKey, entry -> (double) entry.getValue()/filteredSearchResult.size()));
+
     }
 
     public void notifyEmployeeDetailsObservers() {
