@@ -56,6 +56,10 @@ public class HRController {
             state.updateView();
         });
 
+        view.getShowStatisticsButton().addActionListener(e -> {
+            state.showStatistics();
+        });
+
     }
 
 

@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class HRView implements EmployeeDetailsObserver, SearchResultObserver, FilterResultObserver {
+public class HRView implements EmployeeDetailsObserver, SearchResultObserver, FilterResultObserver, StatisticsObserver {
     HRModel hrModel;
 
     JFrame frame;
@@ -103,6 +103,7 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         hrModel.registerEmployeeDetailsObserver(this);
         hrModel.registerSearchResultObserver(this);
         hrModel.registerFilterResultObserver(this);
+        hrModel.registerStatisticsObserver(this);
 
         frame = new JFrame();
         mainPanel = new JPanel();
@@ -385,6 +386,11 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         hrModel.getFilteredSearchResult().forEach(this::addEmployeeRow);
     }
 
+    @Override
+    public void updateStatistics() {
+        System.out.println("Updating statistics in view");
+    }
+
     public void resetTable() {
         searchResultTableModel.setRowCount(0);
     }
@@ -449,6 +455,10 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
 
     public JComboBox<String> getLoginComboBox() {
         return loginComboBox;
+    }
+
+    public JButton getShowStatisticsButton() {
+        return showStatisticsButton;
     }
 
     public JButton getLoginButton() {

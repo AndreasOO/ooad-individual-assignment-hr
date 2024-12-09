@@ -42,7 +42,7 @@ public class ManagerUserState implements ControllerState {
 
     @Override
     public void showStatistics() {
-        // add method in model and add observer
+        model.extractStatistics();
     }
 
     @Override

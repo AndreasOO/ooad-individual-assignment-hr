@@ -3,6 +3,7 @@ package Model;
 import View.EmployeeDetailsObserver;
 import View.FilterResultObserver;
 import View.SearchResultObserver;
+import View.StatisticsObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,8 @@ public class HRModel {
     List<EmployeeDetailsObserver> employeeDetailsObservers;
     List<SearchResultObserver> searchResultObservers;
     List<FilterResultObserver> filterResultObservers;
+    List<StatisticsObserver> statisticsObservers;
+    EmployeeStatistics statistics;
 
     public HRModel() {
         database = new Database();
@@ -23,6 +26,8 @@ public class HRModel {
         employeeDetailsObservers = new ArrayList<>();
         searchResultObservers = new ArrayList<>();
         filterResultObservers = new ArrayList<>();
+        statisticsObservers = new ArrayList<>();
+        statistics = new EmployeeStatistics();
     }
 
     public void setEmployeeSelectedForDetailedView(long employeeID) {
@@ -38,12 +43,14 @@ public class HRModel {
 
     public void searchByName(String name) {
         currentSearchResult = database.searchByName(name);
+        filteredSearchResult = currentSearchResult;
         notifySearchResultObservers();
     }
 
     public void searchByID(String id) {
         long idLong = Long.parseLong(id);
         currentSearchResult = database.searchByID(idLong);
+        filteredSearchResult = currentSearchResult;
         notifySearchResultObservers();
     }
 
@@ -54,6 +61,12 @@ public class HRModel {
             filteredSearchResult = currentSearchResult.stream().filter(employee -> employee.getPosition().title.equals(filter)).collect(Collectors.toList());
         }
         notifyFilterResultObservers();
+    }
+
+    public void extractStatistics() {
+        System.out.println("extracting statistics in model");
+        // TODO statistics methods here
+        notifyStatisticsObservers();
     }
 
     public void notifyEmployeeDetailsObservers() {
@@ -74,6 +87,12 @@ public class HRModel {
         }
     }
 
+    public void notifyStatisticsObservers() {
+        for (StatisticsObserver statisticsObserver : statisticsObservers) {
+            statisticsObserver.updateStatistics();
+        }
+    }
+
     public void registerEmployeeDetailsObserver(EmployeeDetailsObserver employeeDetailsObserver) {
         employeeDetailsObservers.add(employeeDetailsObserver);
     }
@@ -84,6 +103,10 @@ public class HRModel {
 
     public void registerFilterResultObserver(FilterResultObserver filterResultObserver) {
         filterResultObservers.add(filterResultObserver);
+    }
+
+    public void registerStatisticsObserver(StatisticsObserver statisticsObserver) {
+        statisticsObservers.add(statisticsObserver);
     }
 
 
