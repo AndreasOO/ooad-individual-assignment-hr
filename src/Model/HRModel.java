@@ -52,10 +52,17 @@ public class HRModel {
     }
 
     public void searchByID(String id) {
-        long idLong = Long.parseLong(id);
-        currentSearchResult = database.searchByID(idLong);
-        filteredSearchResult = currentSearchResult;
-        notifySearchResultObservers();
+        try {
+            long idLong = Long.parseLong(id);
+            currentSearchResult = database.searchByID(idLong);
+            filteredSearchResult = currentSearchResult;
+            notifySearchResultObservers();
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid ID logged");
+            currentSearchResult = new ArrayList<>();
+            filteredSearchResult = currentSearchResult;
+            notifySearchResultObservers();
+        }
     }
 
     public void filterByPosition(String filter) {
@@ -82,7 +89,6 @@ public class HRModel {
 
     private Map<Position, Double> calculatePositionPercentages() {
         Map<Position, Long> countingMap = filteredSearchResult.stream()
-
                                                               .collect(Collectors.groupingBy(Employee::getPosition, Collectors.counting()));
         return countingMap.entrySet().stream()
                                      .collect(Collectors.toMap(Map.Entry::getKey, entry -> 100*(double) entry.getValue()/filteredSearchResult.size()));
