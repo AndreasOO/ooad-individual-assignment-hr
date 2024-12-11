@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.DoubleSummaryStatistics;
 import java.util.IntSummaryStatistics;
 import java.util.Map;
 
@@ -7,14 +8,14 @@ public class EmployeeStatistics {
     private int numberOfEmployees;
     private double averageWorkingPercentage;
     private Map<Position, Double> positionPercentages;
-    private IntSummaryStatistics salaryStatistics;
+    private DoubleSummaryStatistics salaryStatistics;
     public EmployeeStatistics() {};
 
     public int getNumberOfEmployees() {
         return numberOfEmployees;
     }
 
-    public void setNumberOfEmployees(int numberOfEmployees) {
+    protected void setNumberOfEmployees(int numberOfEmployees) {
         this.numberOfEmployees = numberOfEmployees;
     }
 
@@ -22,7 +23,7 @@ public class EmployeeStatistics {
         return averageWorkingPercentage;
     }
 
-    public void setAverageWorkingPercentage(double averageWorkingPercentage) {
+    protected void setAverageWorkingPercentage(double averageWorkingPercentage) {
         this.averageWorkingPercentage = averageWorkingPercentage;
     }
 
@@ -30,15 +31,15 @@ public class EmployeeStatistics {
         return positionPercentages;
     }
 
-    public void setPositionPercentages(Map<Position, Double> positionPercentages) {
+    protected void setPositionPercentages(Map<Position, Double> positionPercentages) {
         this.positionPercentages = positionPercentages;
     }
 
-    public IntSummaryStatistics getSalaryStatistics() {
+    public DoubleSummaryStatistics getSalaryStatistics() {
         return salaryStatistics;
     }
 
-    public void setSalaryStatistics(IntSummaryStatistics salaryStatistics) {
+    protected void setSalaryStatistics(DoubleSummaryStatistics salaryStatistics) {
         this.salaryStatistics = salaryStatistics;
     }
 }

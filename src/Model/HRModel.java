@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
 public class HRModel {
@@ -73,7 +74,9 @@ public class HRModel {
                                                                             .flatMapToInt(employee -> IntStream.of(employee.getWorkingPercentage()))
                                                                             .sum())/filteredSearchResult.size());
         statistics.setPositionPercentages(calculatePositionPercentages());
-
+        statistics.setSalaryStatistics(filteredSearchResult.stream()
+                                                           .flatMapToDouble(employee -> DoubleStream.of(employee.getSalary()))
+                                                           .summaryStatistics());
 
 
 
@@ -86,7 +89,7 @@ public class HRModel {
 
                                                               .collect(Collectors.groupingBy(Employee::getPosition, Collectors.counting()));
         return countingMap.entrySet().stream()
-                                     .collect(Collectors.toMap(Map.Entry::getKey, entry -> (double) entry.getValue()/filteredSearchResult.size()));
+                                     .collect(Collectors.toMap(Map.Entry::getKey, entry -> 100*(double) entry.getValue()/filteredSearchResult.size()));
 
     }
 
@@ -141,6 +144,10 @@ public class HRModel {
 
     public List<Employee> getFilteredSearchResult() {
         return filteredSearchResult;
+    }
+
+    public EmployeeStatistics getStatistics() {
+        return statistics;
     }
 
     public void clearSearchHistory() {

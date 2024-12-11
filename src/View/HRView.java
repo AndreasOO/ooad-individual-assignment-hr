@@ -1,7 +1,9 @@
 package View;
 
 import Model.Employee;
+import Model.EmployeeStatistics;
 import Model.HRModel;
+import Model.Position;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -388,7 +390,18 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
 
     @Override
     public void updateStatistics() {
-        System.out.println("Updating statistics in view");
+        EmployeeStatistics stats = hrModel.getStatistics();
+        showStatisticsTotalNumberOfEmployeesTextField.setText(String.format("%d",stats.getNumberOfEmployees()));
+        showStatisticsGeneralWorkingPercentageTextField.setText(String.format("%.2f",stats.getAverageWorkingPercentage())); //
+        showStatisticsPositionProductOwnerPercentageTextField.setText(String.format("%.2f",stats.getPositionPercentages().getOrDefault(Position.PRODUCT_OWNER, 0.00)));
+        showStatisticsPositionDeveloperPercentageTextField.setText(String.format("%.2f",stats.getPositionPercentages().getOrDefault(Position.DEVELOPER, 0.00)));
+        showStatisticsPositionManagerPercentageTextField.setText(String.format("%.2f",stats.getPositionPercentages().getOrDefault(Position.MANAGER, 0.00)));
+        showStatisticsPositionHRPercentageTextField.setText(String.format("%.2f",stats.getPositionPercentages().getOrDefault(Position.HR, 0.00)));
+        showStatisticsSalaryHighestTextField.setText(String.format("%.0f",stats.getSalaryStatistics().getMax())); //
+        showStatisticsSalaryLowestTextField.setText(String.format("%.0f",stats.getSalaryStatistics().getMin())); //
+        showStatisticsSalaryAverageTextField.setText(String.format("%.0f",stats.getSalaryStatistics().getAverage()));
+
+
     }
 
     public void resetTable() {
