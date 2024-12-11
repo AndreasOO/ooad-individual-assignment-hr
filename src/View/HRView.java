@@ -143,8 +143,6 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         showDetailsPhoneTextField = new JTextField();
 
 
-        // login panel
-
         loginPanel = new JPanel();
         loginBox = new JPanel();
         loginLabel = new JLabel("Choose user for login", SwingConstants.CENTER);
@@ -152,8 +150,6 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         loginButton = new JButton("Login");
 
 
-
-        // manager view
         showStatisticsMainPanel = new JPanel();
         showStatisticsTopPanel = new JPanel();
         showStatisticsButton = new JButton("Show Statistics");
@@ -261,8 +257,6 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         showDetailsCenterPanel.add(showDetailsPhoneTextField);
 
 
-        //TODO add statistic details main panel - remove/add from centerPanel when switching between users
-
         showStatisticsMainPanel.setLayout(new BorderLayout());
         showStatisticsMainPanel.add(showStatisticsTopPanel, BorderLayout.NORTH);
         showStatisticsTopPanel.setLayout(new GridLayout(1,1));
@@ -303,9 +297,6 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         showStatisticsRightColumn.add(showStatisticsSalaryAverageTextField);
 
 
-
-        // login init
-
         loginPanel.setLayout(new GridLayout(3,3));
 
         loginPanel.add(new JPanel());
@@ -319,8 +310,6 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         loginPanel.add(new JPanel());
         loginPanel.add(new JPanel());
         loginPanel.add(new JPanel());
-
-
 
         loginBox.setLayout(new GridLayout(3,1));
         loginBox.add(loginLabel);
@@ -434,37 +423,11 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         return filterComboBox;
     }
 
-    public JTable getSearchResultTable() {
-        return searchResultTable;
-    }
 
     public JButton getShowDetailsButton() {
         return showDetailsButton;
     }
 
-    public JTextField getShowDetailsNameTextField() {
-        return showDetailsNameTextField;
-    }
-
-    public JTextField getShowDetailsEmploymentPercentageTextField() {
-        return showDetailsEmploymentPercentageTextField;
-    }
-
-    public JTextField getShowDetailsPositionTextField() {
-        return showDetailsPositionTextField;
-    }
-
-    public JTextField getShowDetailsEmailTextField() {
-        return showDetailsEmailTextField;
-    }
-
-    public JTextField getShowDetailsSalaryTextField() {
-        return showDetailsSalaryTextField;
-    }
-
-    public JTextField getShowDetailsPhoneTextField() {
-        return showDetailsPhoneTextField;
-    }
 
     public JComboBox<String> getLoginComboBox() {
         return loginComboBox;

@@ -6,7 +6,6 @@ import View.SearchResultObserver;
 import View.StatisticsObserver;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
