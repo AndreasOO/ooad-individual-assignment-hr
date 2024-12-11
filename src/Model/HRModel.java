@@ -77,9 +77,6 @@ public class HRModel {
                                                            .flatMapToDouble(employee -> DoubleStream.of(employee.getSalary()))
                                                            .summaryStatistics());
 
-
-
-        // TODO statistics methods here
         notifyStatisticsObservers();
     }
 
