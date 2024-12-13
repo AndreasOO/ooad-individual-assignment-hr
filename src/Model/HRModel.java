@@ -17,11 +17,11 @@ public class HRModel {
     Employee employeeSelectedForDetailedView;
     List<Employee> currentSearchResult;
     List<Employee> filteredSearchResult;
+    EmployeeStatistics statistics;
     List<EmployeeDetailsObserver> employeeDetailsObservers;
     List<SearchResultObserver> searchResultObservers;
     List<FilterResultObserver> filterResultObservers;
     List<StatisticsObserver> statisticsObservers;
-    EmployeeStatistics statistics;
 
     public HRModel() {
         database = new Database();
