@@ -5,14 +5,14 @@ import Model.HRModel;
 import View.HRView;
 
 public class HRController {
-    HRModel model;
-    HRView view;
-    User userLoggedIn;
+    private final HRModel model;
+    private final HRView view;
+    private User userLoggedIn;
 
-    ControllerState state;
-    ControllerState loginState;
-    ControllerState hrAdminUserState;
-    ControllerState ManagerUserState;
+    private ControllerState state;
+    private final ControllerState loginState;
+    private final ControllerState hrAdminUserState;
+    private final ControllerState managerUserState;
 
     public HRController(HRModel model) {
         this.model = model;
@@ -20,7 +20,7 @@ public class HRController {
 
         loginState = new LoginState(this, view, model);
         hrAdminUserState = new HRAdminUserState(this, view, model);
-        ManagerUserState = new ManagerUserState(this, view, model);
+        managerUserState = new ManagerUserState(this, view, model);
 
         state = loginState;
 
@@ -32,7 +32,7 @@ public class HRController {
         addEventListeners();
     }
 
-    public void addEventListeners() {
+    private void addEventListeners() {
         view.getShowDetailsButton().addActionListener(e -> {
             state.showEmployeeDetails();
         });
@@ -79,7 +79,7 @@ public class HRController {
     }
 
     public void changeToManagerUserState() {
-        state = ManagerUserState;
+        state = managerUserState;
     }
 
     public void changeToLoginState() {

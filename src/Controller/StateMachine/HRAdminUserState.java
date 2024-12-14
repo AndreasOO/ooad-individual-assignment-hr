@@ -5,9 +5,9 @@ import Model.HRModel;
 import View.HRView;
 
 public class HRAdminUserState implements ControllerState {
-    HRController controller;
-    HRView view;
-    HRModel model;
+    private final HRController controller;
+    private final HRView view;
+    private final HRModel model;
 
     public HRAdminUserState(HRController controller, HRView view, HRModel model) {
         this.controller = controller;

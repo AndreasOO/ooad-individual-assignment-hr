@@ -12,90 +12,84 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class HRView implements EmployeeDetailsObserver, SearchResultObserver, FilterResultObserver, StatisticsObserver {
-    HRModel hrModel;
+    private final HRModel hrModel;
 
-    JFrame frame;
-    JPanel mainPanel;
+    private final JFrame frame;
+    private final JPanel mainPanel;
 
-    JPanel topPanel;
-    JLabel searchLabel;
-    JTextField searchField;
-    JPanel radioButtonPanel;
-    ButtonGroup buttonGroup;
-    JRadioButton radioButtonName;
-    JRadioButton radioButtonID;
-    JLabel filterLabel;
-    JComboBox<String> filterComboBox;
-    JButton logOutButton;
+    private final JPanel topPanel;
+    private final JLabel searchLabel;
+    private final JTextField searchField;
+    private final JPanel radioButtonPanel;
+    private final ButtonGroup buttonGroup;
+    private final JRadioButton radioButtonName;
+    private final JRadioButton radioButtonID;
+    private final JLabel filterLabel;
+    private final JComboBox<String> filterComboBox;
+    private final JButton logOutButton;
 
-    JPanel centerPanel;
-    JPanel searchResultPanel;
-    JTable searchResultTable;
-    DefaultTableModel searchResultTableModel;
-    JScrollPane searchResultScrollPane;
+    private final JPanel centerPanel;
+    private final JPanel searchResultPanel;
+    private final JTable searchResultTable;
+    private final DefaultTableModel searchResultTableModel;
+    private final JScrollPane searchResultScrollPane;
 
-    JPanel showDetailsMainPanel;
-    JPanel showDetailsTopPanel;
-    JButton showDetailsButton;
-    JPanel showDetailsCenterPanel;
-    JTextField showDetailsNameTextField;
-    JTextField showDetailsEmploymentPercentageTextField;
-    JTextField showDetailsPositionTextField;
-    JTextField showDetailsEmailTextField;
-    JTextField showDetailsSalaryTextField;
-    JTextField showDetailsPhoneTextField;
+    private final JPanel showDetailsMainPanel;
+    private final JPanel showDetailsTopPanel;
+    private final JButton showDetailsButton;
+    private final JPanel showDetailsCenterPanel;
+    private final JTextField showDetailsNameTextField;
+    private final JTextField showDetailsEmploymentPercentageTextField;
+    private final JTextField showDetailsPositionTextField;
+    private final JTextField showDetailsEmailTextField;
+    private final JTextField showDetailsSalaryTextField;
+    private final JTextField showDetailsPhoneTextField;
 
     // login panel
-    JPanel loginPanel;
-    JPanel loginBox;
-    JLabel loginLabel;
-    JComboBox<String> loginComboBox;
-    JButton loginButton;
-
+    private final JPanel loginPanel;
+    private final JPanel loginBox;
+    private final JLabel loginLabel;
+    private final JComboBox<String> loginComboBox;
+    private final JButton loginButton;
 
     // manager view
-    JPanel showStatisticsMainPanel;
-    JPanel showStatisticsTopPanel;
-    JButton showStatisticsButton;
-    JPanel showStatisticsCenterPanel;
+    private final JPanel showStatisticsMainPanel;
+    private final JPanel showStatisticsTopPanel;
+    private final JButton showStatisticsButton;
+    private final JPanel showStatisticsCenterPanel;
 
+    private final JPanel showStatisticsLeftColumn;
+    private final JLabel showStatisticsEmployeesTitleLabel;
+    private final JLabel showStatisticsTotalNumberOfEmployeesLabel;
+    private final JTextField showStatisticsTotalNumberOfEmployeesTextField;
+    private final JLabel showStatisticsGeneralWorkingPercentageLabel;
+    private final JTextField showStatisticsGeneralWorkingPercentageTextField;
 
-    JPanel showStatisticsLeftColumn;
-    JLabel showStatisticsEmployeesTitleLabel;
-    JLabel showStatisticsTotalNumberOfEmployeesLabel;
-    JTextField showStatisticsTotalNumberOfEmployeesTextField;
-    JLabel showStatisticsGeneralWorkingPercentageLabel;
-    JTextField showStatisticsGeneralWorkingPercentageTextField;
+    private final JPanel showStatisticsMiddleColumn;
+    private final JLabel showStatisticsPositionsLabel;
 
+    private final JLabel showStatisticsPositionProductOwnerLabel;
+    private final JTextField showStatisticsPositionProductOwnerPercentageTextField;
 
-    JPanel showStatisticsMiddleColumn;
-    JLabel showStatisticsPositionsLabel;
+    private final JLabel showStatisticsPositionDeveloperLabel;
+    private final JTextField showStatisticsPositionDeveloperPercentageTextField;
 
-    JLabel showStatisticsPositionProductOwnerLabel;
-    JTextField showStatisticsPositionProductOwnerPercentageTextField;
+    private final JLabel showStatisticsPositionManagerLabel;
+    private final JTextField showStatisticsPositionManagerPercentageTextField;
 
-    JLabel showStatisticsPositionDeveloperLabel;
-    JTextField showStatisticsPositionDeveloperPercentageTextField;
+    private final JLabel showStatisticsPositionHRLabel;
+    private final JTextField showStatisticsPositionHRPercentageTextField;
 
-    JLabel showStatisticsPositionManagerLabel;
-    JTextField showStatisticsPositionManagerPercentageTextField;
+    private final JPanel showStatisticsRightColumn;
+    private final JLabel showStatisticsSalariesLabel;
+    private final JLabel showStatisticsSalaryHighestLabel;
+    private final JTextField showStatisticsSalaryHighestTextField;
 
-    JLabel showStatisticsPositionHRLabel;
-    JTextField showStatisticsPositionHRPercentageTextField;
+    private final JLabel showStatisticsSalaryLowestLabel;
+    private final JTextField showStatisticsSalaryLowestTextField;
 
-
-
-    JPanel showStatisticsRightColumn;
-    JLabel showStatisticsSalariesLabel;
-
-    JLabel showStatisticsSalaryHighestLabel;
-    JTextField showStatisticsSalaryHighestTextField;
-
-    JLabel showStatisticsSalaryLowestLabel;
-    JTextField showStatisticsSalaryLowestTextField;
-
-    JLabel showStatisticsSalaryAverageLabel;
-    JTextField showStatisticsSalaryAverageTextField;
+    private final JLabel showStatisticsSalaryAverageLabel;
+    private final JTextField showStatisticsSalaryAverageTextField;
 
 
 
@@ -402,10 +396,6 @@ public class HRView implements EmployeeDetailsObserver, SearchResultObserver, Fi
         return searchResultTable.getValueAt(row,0).toString();
     }
 
-
-    public JFrame getFrame() {
-        return frame;
-    }
 
     public JTextField getSearchField() {
         return searchField;

@@ -7,7 +7,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Database {
-    Map<Long, Employee> employees;
+    private final Map<Long, Employee> employees;
 
     public Database() {
         employees = initializeDatabase();
@@ -32,10 +32,5 @@ public class Database {
             result.add(employees.get(id));
         }
         return result;
-    }
-
-
-    public Map<Long, Employee> getEmployees() {
-        return employees;
     }
 }

@@ -1,4 +1,4 @@
-package Controller.StateMachine;
+package Controller;
 
 public enum User {
     HR_ADMIN,

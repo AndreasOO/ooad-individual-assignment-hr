@@ -13,15 +13,15 @@ import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
 public class HRModel {
-    Database database;
-    Employee employeeSelectedForDetailedView;
-    List<Employee> currentSearchResult;
-    List<Employee> filteredSearchResult;
-    EmployeeStatistics statistics;
-    List<EmployeeDetailsObserver> employeeDetailsObservers;
-    List<SearchResultObserver> searchResultObservers;
-    List<FilterResultObserver> filterResultObservers;
-    List<StatisticsObserver> statisticsObservers;
+    private final Database database;
+    private Employee employeeSelectedForDetailedView;
+    private List<Employee> currentSearchResult;
+    private List<Employee> filteredSearchResult;
+    private final EmployeeStatistics statistics;
+    private final List<EmployeeDetailsObserver> employeeDetailsObservers;
+    private final List<SearchResultObserver> searchResultObservers;
+    private final List<FilterResultObserver> filterResultObservers;
+    private final List<StatisticsObserver> statisticsObservers;
 
     public HRModel() {
         database = new Database();
